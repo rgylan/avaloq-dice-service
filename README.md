@@ -81,8 +81,10 @@ Deployment
         
 6)  API Chosen Must be Noun
 
-    a) /simulation - This is POST Http Method since the result is non-idempotent, with Query Parameters.  
+    a) /simulation - This is POST Http Method since the result is non-idempotent, with Query Parameters.
+      
     b) /simulations - This is GET Http Method to get all simulations.
+    
     c) /simulations/{dice}/{side} - This is GET Http Method to get all simulations from a given resource path
     
     of dice and side. 
