@@ -25,6 +25,9 @@ spring:
     properties:
       hibernate:
         format_sql: true
+  h2:
+    console:
+      enabled: true
 
 logging:
   file: logs/avaloq-dice-service

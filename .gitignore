@@ -3,6 +3,7 @@ HELP.md
 build/
 gradle/
 logs/
+out/
 
 ### IntelliJ IDEA ###
 .idea

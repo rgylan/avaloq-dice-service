@@ -1,17 +1,15 @@
 package com.rgy.dice.controller;
 
 import com.rgy.dice.dto.DiceRequestDTO;
+import com.rgy.dice.dto.DiceResponseDTO;
+import com.rgy.dice.dto.DistributionDTO;
 import com.rgy.dice.dto.ResponseWrapperDTO;
 import com.rgy.dice.service.DiceService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -27,8 +25,15 @@ public class DiceController {
         return ResponseWrapperDTO.build(diceService.simulate(diceRequestDTO)).toInstance();
     }
 
-    @GetMapping(path = "/simulation", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> getSimulation() {
-        return new ResponseEntity<String>("I'm OK", HttpStatus.OK);
+    @GetMapping(path = "/simulations", produces = MediaType.APPLICATION_JSON_VALUE)
+    @SuppressWarnings("unchecked")
+    public ResponseWrapperDTO<List<DiceResponseDTO>> getSimulation() {
+        return ResponseWrapperDTO.build(diceService.findAllSimulations()).toInstance();
+    }
+
+    @GetMapping(path = "/simulations/{dice}/{side}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @SuppressWarnings("unchecked")
+    public ResponseWrapperDTO<List<DistributionDTO>> getSimulationByDiceAndSide(@PathVariable Integer dice, @PathVariable Integer side) {
+        return ResponseWrapperDTO.build(diceService.findAllByDiceAndSide(dice, side)).toInstance();
     }
 }

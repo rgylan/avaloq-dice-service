@@ -18,13 +18,18 @@ public class ExceptionHandler extends ResponseEntityExceptionHandler {
     @org.springframework.web.bind.annotation.ExceptionHandler({Exception.class})
     public ResponseEntity<Object> catchUnhandledException(final Exception ex) {
         // Do not return stack trace to client, return simple message and write to log the actual error.
+        // TODO: Implement logging
         return error(HttpStatus.INTERNAL_SERVER_ERROR, buildError(GENERAL_ERROR_MESSAGE));
     }
 
     @org.springframework.web.bind.annotation.ExceptionHandler({DiceRollException.class, DiceSideException.class})
     protected ResponseEntity<Object> catchValidationException(final BaseException ex) {
-        System.out.printf("BaseException: "+ex.getMessage());
         return error(HttpStatus.INTERNAL_SERVER_ERROR, buildError(ex.getMessage()));
+    }
+
+    @org.springframework.web.bind.annotation.ExceptionHandler({MissingParamException.class})
+    protected ResponseEntity<Object> catchMissingParamException(final BaseException ex) {
+        return error(HttpStatus.BAD_REQUEST, buildError(ex.getMessage()));
     }
 
     private ResponseEntity<Object> error(HttpStatus status, ErrorDTO... errors) {

@@ -12,4 +12,6 @@ public class ErrorStrand {
 
     public static final String DICE_SIDE_EXCEPTION = "{dice.side.at.least.4}";
 
+    public static final String MISSING_PARAMETER_EXCEPTION = "{missing.roll.or.dice.or.side}";
+
 }
